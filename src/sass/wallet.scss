@@ -1,0 +1,88 @@
+@import "./colors";
+@import "./components";
+@import "./mixins";
+
+.wallet {
+	.bold {
+		font-weight: 600;
+		padding-bottom: 0.8em;
+	}
+	.stock,
+	.purchase-price,
+	.current-price,
+	.earning-lose,
+	.earning-lose-percentage {
+		display: none;
+	}
+
+	&__stocks {
+		background-color: $second-design-color;
+		border: 1px solid $border-color;
+		border-radius: 12px;
+		position: relative;
+		z-index: -100;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			background: $border-color;
+			height: 1px;
+			top: 40px;
+		}
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr;
+		gap: 0.2em;
+		padding: 0.5em;
+		position: relative;
+
+		&-text {
+			padding-bottom: 0.5em;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.wallet {
+		.earning-lose,
+		.earning-lose-percentage {
+			display: block;
+		}
+
+		&__grid {
+			grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+		}
+	}
+}
+
+@media (min-width: 1100px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+	}
+
+	.wallet {
+		.stock,
+		.purchase-price,
+		.current-price {
+			display: block;
+		}
+
+		&__grid {
+			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+		}
+	}
+}
+
+@media (min-width: 1340px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+		padding-left: 310px;
+	}
+}

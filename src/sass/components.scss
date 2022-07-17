@@ -1,0 +1,23 @@
+@import "./colors";
+
+.wrapper {
+	margin: 0 auto;
+	max-width: 1445px;
+	width: 100%;
+	padding: 0 1.5em;
+}
+.section-heading {
+	font-size: 2rem;
+	font-weight: 500;
+	padding: 1em 0;
+}
+
+.plus-color {
+	color: $sixth-text-color;
+}
+.minus-color {
+	color: $seventh-text-color;
+}
+.stagnation-color {
+	color: $first-text-color;
+}

@@ -1,0 +1,154 @@
+@import "./colors";
+@import "./components";
+@import "./mixins";
+
+.right-column {
+	position: relative;
+	height: 100vh;
+}
+.favorite {
+	.bold {
+		font-weight: 600;
+		padding-bottom: 0.8em;
+	}
+	.stock,
+	.stock-currency,
+	.exchange,
+	.p-e,
+	.symbol {
+		display: none;
+	}
+
+	&__stocks {
+		background-color: $second-design-color;
+		border: 1px solid $border-color;
+		border-radius: 12px;
+		position: relative;
+		z-index: -100;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			background: $border-color;
+			height: 1px;
+			top: 40px;
+		}
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr 0.2fr;
+		gap: 0.2em;
+		padding: 0.5em;
+		position: relative;
+
+		&-text {
+			padding-bottom: 0.5em;
+		}
+		.fa-xmark {
+			color: $seventh-text-color;
+			cursor: pointer;
+			font-size: 2rem;
+		}
+	}
+
+	&__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__add {
+		display: flex;
+		align-items: center;
+		&-input {
+			border: 1px solid $border-color;
+			border-radius: 12px;
+			padding: 0.7em 0.7em;
+			width: 100%;
+			min-width: 220px;
+		}
+		&-btn {
+			font-size: 2.5rem;
+			color: $second-text-color;
+			padding-left: 0.3em;
+			cursor: pointer;
+
+			&:hover {
+				color: $first-design-color;
+			}
+		}
+	}
+	&__error {
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 80%;
+		max-width: 400px;
+		transform: translate(-50%, -50%);
+		padding: 40px 0;
+		@include block-style;
+		display: none;
+
+		&-btn {
+			margin-top: 1em;
+			padding: 0.5em 1em;
+			background: none;
+			border: 1px solid $border-color;
+			background-color: $first-design-color;
+			color: $third-text-color;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: display 0.3s;
+		}
+		&--active {
+			display: block;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.favorite {
+		.p-e,
+		.symbol {
+			display: block;
+		}
+
+		&__grid {
+			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.2fr;
+		}
+	}
+}
+
+@media (min-width: 1100px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+	}
+
+	.favorite {
+		.stock,
+		.stock-currency,
+		.exchange {
+			display: block;
+		}
+
+		&__grid {
+			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
+		}
+	}
+}
+
+@media (min-width: 1340px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+		margin-left: 300px;
+	}
+}
