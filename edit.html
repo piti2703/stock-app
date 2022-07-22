@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="dist/css/main.min.css">
-    <link rel="stylesheet" href="dist/css/favorite.min.css">
+    <link rel="stylesheet" href="dist/css/edit.min.css">
     <script src="https://kit.fontawesome.com/7689eee82e.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,29 +58,41 @@
         </div>
 
         <div class="right-column">
-            <div class="favorite">
-                <div class="favorite__top">
-                    <h3 class="section-heading">Favorites</h3>
-                    <div class="favorite__add">
-                        <input type="text" class="favorite__add-input" placeholder='Enter the symbol, e.g. "AMZN"'>
-                        <i class="favorite__add-btn fa-solid fa-circle-plus"></i>
-                    </div>
+            <div class="edit">
+                <h3 class="section-heading">Edit Wallet</h3>
+                <div class="edit__btns">
+                    <button class="edit__btns-btn edit__btns-btn--add">Add a purchase</button>
+                    <button class="edit__btns-btn2">Add a sale</button>
                 </div>
-                <div class="favorite__stocks">
-                    <div class="favorite__grid">
-                        <p class="favorite__grid-text bold product">Product</p>
-                        <p class="favorite__grid-text bold change">+/- %</p>
-                        <p class="favorite__grid-text bold price">Price</p>
-                        <p class="favorite__grid-text bold stock-currency">Currency</p>
-                        <p class="favorite__grid-text bold exchange">Exchange</p>
-                        <p class="favorite__grid-text bold p-e">P/E</p>
-                        <p class="favorite__grid-text bold symbol">Symbol</p>
-                    </div>
+                <div class="edit__buy">
+                    <h4 class="edit__buy-heading">Add purchase transactions</h3>
+                        <input class="edit__buy-symbol" type="text" placeholder='Enter the symbol, e.g. "AMZN"'>
+                        <input class="edit__buy-price" type="number" placeholder='Enter purchase price'>
+                        <input class="edit__buy-quantity" type="number" placeholder='Enter quantity'>
+                        <select class="edit__buy-currency" name="" id="" placeholder='Select currency'>
+                            <option value="-">--</option>
+                            <option value="pln">PLN</option>
+                            <option value="eur">EUR</option>
+                            <option value="usd">USD</option>
+                        </select>
+                        <div class="edit__buy-confirm">
+                            <button class="edit__btns-btn">Confirm</button>
+                        </div>
+                </div>
+                <div class="edit__sale">
+                    <h4 class="edit__sale-heading">Add sales transactions</h3>
+                        <select class="edit__sale-stocks" name="" id="" placeholder='Select stocks to sell'
+                            onchange="selectValue()">
+                            <option value="-">--</option>
+                        </select>
+                        <input class="edit__sale-price" type="number" placeholder='Enter the selling price'>
+                        <div class="edit__sale-confirm">
+                            <button class="edit__btns-btn">Confirm</button>
+                        </div>
                 </div>
             </div>
-
             <div class="error">
-                <p class="error-text">Please enter a <b>valid symbol!</b></p>
+                <p class="error-text"></p>
                 <button class="error-btn">Close</button>
             </div>
         </div>
@@ -91,7 +103,7 @@
 
 
     <script src="dist/js/main.min.js"></script>
-    <script src="dist/js/favorite.min.js"></script>
+    <script src="dist/js/edit.min.js"></script>
 </body>
 
 </html>

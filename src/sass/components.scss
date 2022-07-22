@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./mixins";
 
 .wrapper {
 	margin: 0 auto;
@@ -20,4 +21,35 @@
 }
 .stagnation-color {
 	color: $first-text-color;
+}
+
+.error {
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	flex-direction: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80%;
+	max-width: 400px;
+	transform: translate(-50%, -50%);
+	padding: 40px 0;
+	@include block-style;
+	display: none;
+
+	&-btn {
+		margin-top: 1em;
+		padding: 0.5em 1em;
+		background: none;
+		border: 1px solid $border-color;
+		background-color: $first-design-color;
+		color: $third-text-color;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: display 0.3s;
+	}
+	&--active {
+		display: block;
+	}
 }

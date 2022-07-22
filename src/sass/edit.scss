@@ -1,0 +1,73 @@
+@import "./colors";
+@import "./components";
+@import "./mixins";
+
+.edit {
+	&__btns {
+		display: flex;
+		justify-content: space-between;
+
+		&-btn,
+		&-btn2 {
+			margin-top: 1em;
+			padding: 0.8em 1.2em;
+			background: none;
+			border: 1px solid $border-color;
+			background-color: $first-design-color;
+			color: $third-text-color;
+			font-size: 1.6rem;
+			border-radius: 12px;
+			cursor: pointer;
+			min-width: 155px;
+			width: 40%;
+
+			&:hover {
+				background-color: #0a64ca;
+			}
+		}
+	}
+	&__buy,
+	&__sale {
+		padding-top: 2em;
+		display: none;
+		transition: 0.4s display ease-out;
+
+		&--active {
+			display: block;
+		}
+
+		input,
+		select {
+			width: 100%;
+			padding: 1em;
+			margin: 0.5em 0;
+			border-radius: 12px;
+			border: 1px solid $second-text-color;
+			color: $first-text-color;
+		}
+		&-heading {
+			padding: 1em 0;
+		}
+		&-confirm {
+			display: flex;
+			justify-content: end;
+		}
+	}
+}
+
+@media (min-width: 1100px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+	}
+}
+
+@media (min-width: 1340px) {
+	.right-column {
+		width: 100%;
+		max-width: unset;
+		padding-top: 2em;
+		padding-left: 310px;
+	}
+}

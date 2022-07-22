@@ -26,6 +26,8 @@ body {
 	width: 100%;
 	padding-top: 65px;
 	z-index: 0;
+	position: relative;
+	overflow: hidden;
 }
 .center-column,
 .right-column {
