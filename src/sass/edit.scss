@@ -55,19 +55,20 @@
 	}
 }
 
-@media (min-width: 1100px) {
-	.right-column {
-		width: 100%;
-		max-width: unset;
-		padding-top: 2em;
+.message {
+	text-align: center;
+	padding-top: 2em;
+	display: none;
+
+	&--active {
+		display: block;
 	}
 }
 
 @media (min-width: 1340px) {
-	.right-column {
+	.center-column {
 		width: 100%;
 		max-width: unset;
 		padding-top: 2em;
-		padding-left: 310px;
 	}
 }

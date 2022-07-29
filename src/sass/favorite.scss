@@ -2,10 +2,6 @@
 @import "./components";
 @import "./mixins";
 
-.right-column {
-	position: relative;
-	height: 100vh;
-}
 .favorite {
 	.bold {
 		font-weight: 600;
@@ -93,13 +89,7 @@
 	}
 }
 
-@media (min-width: 1100px) {
-	.right-column {
-		width: 100%;
-		max-width: unset;
-		padding-top: 2em;
-	}
-
+@media (min-width: 1340px) {
 	.favorite {
 		.stock,
 		.stock-currency,
@@ -110,14 +100,5 @@
 		&__grid {
 			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
 		}
-	}
-}
-
-@media (min-width: 1340px) {
-	.right-column {
-		width: 100%;
-		max-width: unset;
-		padding-top: 2em;
-		margin-left: 300px;
 	}
 }

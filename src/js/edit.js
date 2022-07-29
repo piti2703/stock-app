@@ -17,6 +17,8 @@ const confirmBtn2 = document.querySelector(".edit__sale-confirm")
 
 const buyedStocks = JSON.parse(localStorage.getItem("buyedStocks")) || []
 
+const message = document.querySelector(".message")
+
 function addToggle() {
 	addPurchaseBox.classList.toggle("edit__buy--active")
 	addSaleBox.classList.remove("edit__sale--active")
@@ -47,9 +49,13 @@ function checkSymbol() {
 				errorBoxText.innerHTML = `Please enter a <b>valid symbol!</b>`
 			} else {
 				console.log("sumbol jest ok")
-				addPurchase()
+				addPurchase(
+					response.optionChain.result[0].quote.shortName,
+					response.optionChain.result[0].quote.fullExchangeName
+				)
 				clearInputs()
-				window.location.reload(true)
+				message.classList.add("message--active")
+				setTimeout(() => window.location.reload(true), 2000)
 			}
 		})
 		.catch(err => console.error(err))
@@ -79,7 +85,7 @@ function clearInputs() {
 	currency.value = "-"
 }
 
-function addPurchase() {
+function addPurchase(stockName, exchangeName) {
 	const newStock = {
 		symbol: symbol.value,
 		purchasePrice: price.value,
@@ -87,6 +93,8 @@ function addPurchase() {
 		currency: currency.value,
 		status: "open",
 		salesValue: "",
+		stockName: stockName,
+		exchangeName: exchangeName,
 	}
 	buyedStocks.push(newStock)
 	localStorage.setItem("buyedStocks", JSON.stringify(buyedStocks))
@@ -124,7 +132,8 @@ function addSales() {
 			if (el.symbol == selectedStock) {
 				el.status = "close"
 				el.salesValue = (el.quantity * sellingPrice.value).toFixed(2)
-				window.location.reload(true)
+				message.classList.add("message--active")
+				setTimeout(() => window.location.reload(true), 2000)
 			}
 		})
 	}

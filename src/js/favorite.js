@@ -26,7 +26,14 @@ function addFavoritesSymbol() {
 				favoriteErrorBox.classList.add("error--active")
 			} else {
 				favoriteErrorBox.classList.remove("error--active")
-				stocks.push(response.optionChain.result[0].quote.symbol)
+				const newFavorite = {
+					symbol: response.optionChain.result[0].quote.symbol,
+					currency: response.optionChain.result[0].quote.currency,
+					stockName: response.optionChain.result[0].quote.shortName,
+					exchangeName: response.optionChain.result[0].quote.fullExchangeName,
+				}
+
+				stocks.push(newFavorite)
 				localStorage.setItem("stocks", JSON.stringify(stocks))
 				window.location.reload(true)
 			}
@@ -34,6 +41,28 @@ function addFavoritesSymbol() {
 		.catch(err => console.error(err))
 
 	favoriteInput.value = ""
+}
+
+function displayFavorites() {
+	stocks.forEach(el => {
+		const newFavoriteItem = document.createElement("div")
+		newFavoriteItem.classList.add("favorite__grid")
+		newFavoriteItem.classList.add("favorite__grid--stock")
+		newFavoriteItem.setAttribute("data-symbol", el.symbol)
+		favorite.appendChild(newFavoriteItem)
+
+		newFavoriteItem.innerHTML = `
+		<p class="favorite__grid-text product">${el.stockName}</p>
+		<p class="favorite__grid-text change">0</p>
+		<p class="favorite__grid-text price">0</p>
+		<p class="favorite__grid-text stock-currency">${el.currency}</p>
+		<p class="favorite__grid-text exchange">${el.exchangeName}</p>
+		<p class="favorite__grid-text p-e">0</p>
+		<p class="favorite__grid-text symbol">${el.symbol}</p>
+		<i class="favorite__grid-mark fa-solid fa-xmark"></i>
+		`
+	})
+	displayValues()
 }
 
 async function getData(symbol) {
@@ -52,10 +81,14 @@ async function getData(symbol) {
 	return data.json()
 }
 
-async function displayFavorites() {
-	stocks.map(async el => {
-		const data = await getData(el)
+function displayValues() {
+	const allFavoriteBox = document.querySelectorAll(".favorite__grid--stock")
+
+	allFavoriteBox.forEach(async el => {
+		const symbol = el.dataset.symbol
+		const data = await getData(symbol)
 		const dataResult = data.optionChain.result[0].quote
+
 		let stockPrice = dataResult.regularMarketChangePercent.toFixed(2)
 		let color
 
@@ -70,21 +103,15 @@ async function displayFavorites() {
 			stockPrice = `${stockPrice}%`
 		}
 
-		const newStock = document.createElement("div")
-		favorite.appendChild(newStock)
-		newStock.classList.add("favorite__grid")
-		newStock.innerHTML = `
-		<p class="favorite__grid-text product">${dataResult.shortName}</p>
-		<p class="favorite__grid-text change ${color}">${stockPrice}</p>
-		<p class="favorite__grid-text price">${dataResult.ask}</p>
-		<p class="favorite__grid-text stock-currency">${dataResult.currency}</p>
-		<p class="favorite__grid-text exchange">${dataResult.fullExchangeName}</p>
-		<p class="favorite__grid-text p-e">${dataResult.trailingPE.toFixed(2)}</p>
-		<p class="favorite__grid-text symbol">${dataResult.symbol}</p>
-		<i class="favorite__grid-mark fa-solid fa-xmark"></i>
+		const change = el.querySelector(".change")
+		change.textContent = stockPrice
+		change.classList.add(color)
 
-		`
-		console.log(dataResult)
+		const price = el.querySelector(".price")
+		price.textContent = dataResult.regularMarketPrice
+
+		const priceEarning = el.querySelector(".p-e")
+		priceEarning.textContent = dataResult.trailingPE.toFixed(2)
 	})
 }
 displayFavorites()

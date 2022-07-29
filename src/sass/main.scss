@@ -18,7 +18,6 @@ html {
 body {
 	font-family: "Poppins", sans-serif;
 	font-size: 1.6rem;
-	// background-color: $second-design-color;
 }
 .main {
 	margin: 0 auto;
@@ -271,6 +270,10 @@ body {
 				color: $second-text-color;
 			}
 		}
+		&-quantity {
+			font-size: 2.4rem;
+			display: none;
+		}
 		&-percentage {
 			width: 30%;
 			font-size: 2.4rem;
@@ -295,6 +298,7 @@ body {
 	&__box {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		font-size: 2rem;
 		font-weight: 500;
 		padding-bottom: 1.2em;
@@ -311,7 +315,6 @@ body {
 	height: 100vh;
 	width: 100%;
 	max-width: 280px;
-	// background-color: $second-design-color;
 	border-right: 2px solid $border-color;
 	padding: 2em 1em;
 	display: none;
@@ -401,29 +404,29 @@ body {
 	.nav-mobile {
 		width: 25%;
 	}
+	.balance {
+		&__total {
+			padding: 0 3em;
+		}
+	}
+
+	.stocks {
+		&__box {
+			&-quantity {
+				display: block;
+				width: 20%;
+			}
+			&-name {
+				width: 30%;
+			}
+		}
+	}
 }
 
 @media (min-width: 992px) {
 }
 
 @media (min-width: 1100px) {
-	main {
-		display: flex;
-		justify-content: space-between;
-	}
-	.center-column {
-		width: 100%;
-		max-width: 862px;
-		padding-right: 0;
-	}
-	.right-column {
-		width: 100%;
-		max-width: 510px;
-		padding-top: 4.3em;
-	}
-}
-
-@media (min-width: 1340px) {
 	.main {
 		max-width: 1330px;
 		padding-top: 0;
@@ -440,8 +443,5 @@ body {
 	}
 	.center-column {
 		padding-left: 310px;
-	}
-	.stocks {
-		margin-top: 6.4em;
 	}
 }

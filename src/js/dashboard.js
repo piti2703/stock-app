@@ -1,117 +1,164 @@
-const currencyRates = document.querySelectorAll(".currency__box-rate")
-const currencyPercentages = document.querySelectorAll(
-	".currency__box-percentage "
-)
+const currencyBoxes = document.querySelectorAll(".currency__box")
 
-function getPreviousDay(date = new Date()) {
-	let month
+const stocksBoxes = document.querySelector(".stocks__boxes")
+const buyedStocks = JSON.parse(localStorage.getItem("buyedStocks")) || []
+let valueUSD = 0
+let valueEUR = 0
+let valuePLN = 0
 
-	const previous = new Date(date.getTime())
-	previous.setDate(date.getDate() - 1)
+const pln = document.querySelector(".balance__currency-pln")
+const eur = document.querySelector(".balance__currency-eur")
+const usd = document.querySelector(".balance__currency-usd")
 
-	const day = previous.getDate()
-	const monthBeta = previous.getMonth() + 1
-	const year = previous.getFullYear()
-
-	if (monthBeta < 10) {
-		month = "0" + monthBeta
-	} else {
-		month = monthBeta
+async function getData(symbol) {
+	const options = {
+		method: "GET",
+		url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
+		params: { modules: "defaultKeyStatistics,assetProfile" },
+		headers: {
+			"x-api-key": "VhcanQxrrj46M9QxaP1s06hfYeVr8LDO7KIr1g1x",
+		},
 	}
-
-	const yesterday = `${year}-${month}-${day}`
-
-	return yesterday
-}
-
-function getToday() {
-	const now = new Date()
-	let month
-	const day = now.getDate()
-	const monthBeta = now.getMonth() + 1
-	const year = now.getFullYear()
-
-	if (monthBeta < 10) {
-		month = "0" + monthBeta
-	} else {
-		month = monthBeta
-	}
-
-	const today = `${year}-${month}-${day}`
-
-	return today
-}
-
-// CURRENCY RATE
-
-function getCurrencyRate(currency1, currency2, date = getToday()) {
-	const fetchedData = fetch(
-		`https://api.exchangerate.host/convert?from=${currency1}&to=${currency2}&date=${date}`
+	const data = await fetch(
+		`https://yfapi.net/v7/finance/options/${symbol}`,
+		options
 	)
-		.then(res => {
-			if (res.ok) {
-				return res.json()
-			} else {
-				throw new Error()
-			}
-		})
-		.then(res => {
-			return res.info.rate
-		})
-		.catch(() => {
-			console.log("API ERROR!!!")
-		})
+	return data.json()
+}
 
-	return fetchedData
+function calcBalance() {
+	buyedStocks.forEach(async el => {
+		if (el.status == "open") {
+			const symbol = el.symbol
+
+			const data = await getData(symbol)
+			const dataResult = data.optionChain.result[0].quote
+			const objLocalStorage = buyedStocks.find(el => el.symbol == symbol)
+			const currentValue = (
+				parseFloat(objLocalStorage.quantity) *
+				parseFloat(dataResult.regularMarketPrice)
+			).toFixed(2)
+			if (el.currency == "usd") {
+				valueUSD += parseFloat(currentValue)
+			} else if (el.currency == "eur") {
+				valueEUR += parseFloat(currentValue)
+			} else {
+				valuePLN += parseFloat(currentValue)
+			}
+			displayBalance()
+		}
+	})
+	// setTimeout(() => displayBalance(), 2000)
+}
+
+calcBalance()
+
+function displayBalance() {
+	pln.lastElementChild.textContent = valuePLN
+	eur.lastElementChild.textContent = valueEUR
+	usd.lastElementChild.textContent = valueUSD
 }
 
 function setCurrencyRate() {
-	currencyRates.forEach(el => {
-		const currency1 = el.dataset.currency1
-		const currency2 = el.dataset.currency2
+	currencyBoxes.forEach(async el => {
+		const symbol = el.dataset.symbol
+		const data = await getData(symbol)
+		const dataResult = data.optionChain.result[0].quote
 
-		const valuePromise = getCurrencyRate(currency1, currency2)
-		valuePromise.then(value => {
-			el.textContent = value.toFixed(4)
-		})
+		let currencyChange = dataResult.regularMarketChangePercent.toFixed(2)
+		let color
+
+		if (currencyChange > 0) {
+			color = "plus-color"
+			currencyChange = `+${currencyChange}%`
+		} else if (currencyChange == 0) {
+			color = "stagnation-color"
+			currencyChange = `${currencyChange}%`
+		} else {
+			color = "minus-color"
+			currencyChange = `${currencyChange}%`
+		}
+
+		const percentage = el.querySelector(".currency__box-percentage")
+		percentage.textContent = currencyChange
+		percentage.classList.add(color)
+
+		const rate = el.querySelector(".currency__box-rate")
+		rate.textContent = dataResult.regularMarketPrice.toFixed(4)
 	})
 }
 
-setCurrencyRate()
+// setCurrencyRate()
 
-function calcChange() {
-	currencyPercentages.forEach(el => {
-		const currency1 = el.dataset.currency1
-		const currency2 = el.dataset.currency2
+function displayStocks() {
+	buyedStocks.forEach(el => {
+		if (el.status !== "open") {
+			return
+		}
 
-		let value1
-		let value2
+		const newBox = document.createElement("div")
+		newBox.classList.add("stocks__box")
+		stocksBoxes.appendChild(newBox)
 
-		const yesterdaysValue = getCurrencyRate(
-			currency1,
-			currency2,
-			getPreviousDay()
-		)
-		yesterdaysValue.then(value => (value1 = value))
+		newBox.innerHTML = `
+		<div class="stocks__box-name" data-symbol='${el.symbol}'>
+		<p>${el.stockName}</p>
+		<span>${el.exchangeName.toUpperCase()}</span>
+		</div>
+		<p class="stocks__box-quantity">-</p>
+		<p class="stocks__box-percentage">0</p>
+		<div class="stocks__box-price">
+			<p>0 ${el.currency.toUpperCase()}</p>
+			<span>0 ${el.currency.toUpperCase()}</span>
+		</div>
+		`
+	})
+	displayValues()
+}
 
-		const todaysValue = getCurrencyRate(currency1, currency2)
-		todaysValue.then(value => (value2 = value))
+function displayValues() {
+	const allStocksBox = document.querySelectorAll(".stocks__box")
+	allStocksBox.forEach(async el => {
+		const symbol = el.firstElementChild.dataset.symbol
+		const data = await getData(symbol)
+		const dataResult = data.optionChain.result[0].quote
 
-		setTimeout(() => {
-			const percentage = (((value2 - value1) / value1) * 100).toFixed(2)
+		let stockPrice = dataResult.regularMarketChangePercent.toFixed(2)
+		let color
 
-			if (percentage > 0) {
-				el.classList.add("plus-color")
-				el.textContent = `+${percentage}%`
-			} else if (percentage == 0) {
-				el.classList.add("stagnation-color")
-				el.textContent = `${percentage}%`
-			} else {
-				el.classList.add("minus-color")
-				el.textContent = `${percentage}%`
-			}
-		}, 1000)
+		if (stockPrice > 0) {
+			color = "plus-color"
+			stockPrice = `+${stockPrice}%`
+		} else if (stockPrice == 0) {
+			color = "stagnation-color"
+			stockPrice = `${stockPrice}%`
+		} else {
+			color = "minus-color"
+			stockPrice = `${stockPrice}%`
+		}
+
+		const percentageBox = el.querySelector(".stocks__box-percentage")
+		percentageBox.textContent = stockPrice
+		percentageBox.classList.add(color)
+
+		const priceBox = el.querySelector(".stocks__box-price")
+		priceBox.firstElementChild.textContent = `${dataResult.regularMarketPrice} ${dataResult.currency}`
+
+		const exchangeStatus = el.querySelector(".stocks__box-quantity")
+		if (dataResult.triggerable) {
+			exchangeStatus.classList.add("plus-color")
+			exchangeStatus.textContent = "OPEN"
+		} else {
+			exchangeStatus.classList.add("minus-color")
+			exchangeStatus.textContent = "CLOSE"
+		}
+
+		const objLocalStorage = buyedStocks.find(el => el.symbol == symbol)
+		const currentValue = (
+			objLocalStorage.quantity * dataResult.regularMarketPrice
+		).toFixed(2)
+		priceBox.lastElementChild.textContent = `${currentValue} ${dataResult.currency}`
 	})
 }
 
-calcChange()
+// displayStocks()

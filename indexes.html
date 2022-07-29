@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK APP</title>
+    <link rel="stylesheet" href="dist/css/main.min.css">
+    <link rel="stylesheet" href="dist/css/indexes.min.css">
+    <script src="https://kit.fontawesome.com/7689eee82e.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <a href="index.html" class="header__logo">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+                <h1>MyStocksWatch</h1>
+            </a>
+            <button class="header__btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="nav-mobile">
+                <div class="nav-mobile__list">
+                    <a href="index.html" class="nav-mobile__list-item"><i class="fa-solid fa-house"></i>Dashboard</a>
+                    <a href="wallet.html" class="nav-mobile__list-item"><i class="fa-solid fa-wallet"></i>My Wallet</a>
+                    <a href="favorite.html" class="nav-mobile__list-item"><i class="fa-solid fa-heart"></i>Favorite</a>
+                    <a href="indexes.html" class="nav-mobile__list-item"><i
+                            class="fa-solid fa-chart-column"></i>Indexes</a>
+                    <a href="edit.html" class="nav-mobile__list-item"><i class="fa-solid fa-gear"></i>Edit Wallet</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <div class="left-column">
+            <a href="index.html" class="left-column__logo">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+                <h1>MyStocksWatch</h1>
+            </a>
+            <nav class="nav-desktop">
+                <div class="nav-desktop__list">
+                    <a href="index.html" class="nav-desktop__list-item"><i class="fa-solid fa-house"></i>Dashboard</a>
+                    <a href="wallet.html" class="nav-desktop__list-item"><i class="fa-solid fa-wallet"></i>My Wallet</a>
+                    <a href="favorite.html" class="nav-desktop__list-item"><i class="fa-solid fa-heart"></i>Favorite</a>
+                    <a href="indexes.html" class="nav-desktop__list-item"><i
+                            class="fa-solid fa-chart-column"></i>Indexes</a>
+                    <a href="edit.html" class="nav-desktop__list-item"><i class="fa-solid fa-gear"></i>Edit Wallet</a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="center-column">
+            <div class="indexes">
+                <div class="indexes__top">
+                    <h3 class="section-heading">Importan Indexes</h3>
+                </div>
+                <div class="indexes__stocks">
+                    <div class="indexes__grid">
+                        <p class="indexes__grid-text bold product">Product</p>
+                        <p class="indexes__grid-text bold change">+/- %</p>
+                        <p class="indexes__grid-text bold price">Price</p>
+                        <p class="indexes__grid-text bold stock-currency">Currency</p>
+                        <p class="indexes__grid-text bold region">Region</p>
+                        <p class="indexes__grid-text bold symbol">Symbol</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="^GSPC">
+                        <p class="indexes__grid-text product">S&P 500</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">USD</p>
+                        <p class="indexes__grid-text region">USA</p>
+                        <p class="indexes__grid-text symbol">^GSPC</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="^IXIC">
+                        <p class="indexes__grid-text product">NASDAQ</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">USD</p>
+                        <p class="indexes__grid-text region">USA</p>
+                        <p class="indexes__grid-text symbol">"IXIC</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="^DJI">
+                        <p class="indexes__grid-text product">Dow Jones</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">USD</p>
+                        <p class="indexes__grid-text region">USA</p>
+                        <p class="indexes__grid-text symbol">^DJI</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="WIG20.WA">
+                        <p class="indexes__grid-text product">WIG20</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">PLN</p>
+                        <p class="indexes__grid-text region">Poland</p>
+                        <p class="indexes__grid-text symbol">WIG20.WA</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="MWIG40.WA">
+                        <p class="indexes__grid-text product">mWIG40</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">PLN</p>
+                        <p class="indexes__grid-text region">Poland</p>
+                        <p class="indexes__grid-text symbol">MWIG40.WA</p>
+                    </div>
+                    <div class="indexes__grid indexes__grid--index" data-symbol="SWIG80.WA">
+                        <p class="indexes__grid-text product">sWIG80</p>
+                        <p class="indexes__grid-text change">0</p>
+                        <p class="indexes__grid-text price">0</p>
+                        <p class="indexes__grid-text stock-currency">PLN</p>
+                        <p class="indexes__grid-text region">Poland</p>
+                        <p class="indexes__grid-text symbol">SWIG80.WA</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error">
+                <p class="error-text">Please enter a <b>valid symbol!</b></p>
+                <button class="error-btn">Close</button>
+            </div>
+        </div>
+    </main>
+
+
+
+
+
+    <script src="dist/js/main.min.js"></script>
+    <script src="dist/js/indexes.min.js"></script>
+</body>
+
+</html>

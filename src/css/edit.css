@@ -1,0 +1,158 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 1445px;
+  width: 100%;
+  padding: 0 1.5em;
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1em 0;
+}
+
+.plus-color {
+  color: #008a39;
+}
+
+.minus-color {
+  color: #f53c3d;
+}
+
+.stagnation-color {
+  color: #131635;
+}
+
+.error {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  max-width: 400px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 40px 0;
+  background-color: #f9f8fd;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  padding: 1em;
+  display: none;
+}
+
+.error-btn {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  background: none;
+  border: 1px solid #dcdcdc;
+  background-color: #0177fd;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-transition: display 0.3s;
+  transition: display 0.3s;
+}
+
+.error--active {
+  display: block;
+}
+
+.edit__btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.edit__btns-btn, .edit__btns-btn2 {
+  margin-top: 1em;
+  padding: 0.8em 1.2em;
+  background: none;
+  border: 1px solid #dcdcdc;
+  background-color: #0177fd;
+  color: #fff;
+  font-size: 1.6rem;
+  border-radius: 12px;
+  cursor: pointer;
+  min-width: 155px;
+  width: 40%;
+}
+
+.edit__btns-btn:hover, .edit__btns-btn2:hover {
+  background-color: #0a64ca;
+}
+
+.edit__buy, .edit__sale {
+  padding-top: 2em;
+  display: none;
+  -webkit-transition: 0.4s display ease-out;
+  transition: 0.4s display ease-out;
+}
+
+.edit__buy--active, .edit__sale--active {
+  display: block;
+}
+
+.edit__buy input,
+.edit__buy select, .edit__sale input,
+.edit__sale select {
+  width: 100%;
+  padding: 1em;
+  margin: 0.5em 0;
+  border-radius: 12px;
+  border: 1px solid #798ba3;
+  color: #131635;
+}
+
+.edit__buy-heading, .edit__sale-heading {
+  padding: 1em 0;
+}
+
+.edit__buy-confirm, .edit__sale-confirm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.message {
+  text-align: center;
+  padding-top: 2em;
+  display: none;
+}
+
+.message--active {
+  display: block;
+}
+
+@media (min-width: 1100px) {
+  .right-column {
+    width: 100%;
+    max-width: unset;
+    padding-top: 2em;
+  }
+}
+
+@media (min-width: 1340px) {
+  .right-column {
+    width: 100%;
+    max-width: unset;
+    padding-top: 2em;
+    padding-left: 310px;
+  }
+}
+/*# sourceMappingURL=edit.css.map */

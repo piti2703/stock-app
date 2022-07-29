@@ -2,16 +2,15 @@
 @import "./components";
 @import "./mixins";
 
-.wallet {
+.indexes {
 	.bold {
 		font-weight: 600;
 		padding-bottom: 0.8em;
 	}
 	.stock,
-	.purchase-price,
-	.current-price,
-	.earning-lose,
-	.earning-lose-percentage {
+	.stock-currency,
+	.region,
+	.symbol {
 		display: none;
 	}
 
@@ -20,7 +19,6 @@
 		border: 1px solid $border-color;
 		border-radius: 12px;
 		position: relative;
-		z-index: -100;
 
 		&::after {
 			content: "";
@@ -34,7 +32,7 @@
 
 	&__grid {
 		display: grid;
-		grid-template-columns: 1.5fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr;
 		gap: 0.2em;
 		padding: 0.5em;
 		position: relative;
@@ -42,13 +40,45 @@
 		&-text {
 			padding-bottom: 0.5em;
 		}
+		.fa-xmark {
+			color: $seventh-text-color;
+			cursor: pointer;
+			font-size: 2rem;
+		}
+	}
+
+	&__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__add {
+		display: flex;
+		align-items: center;
+		&-input {
+			border: 1px solid $border-color;
+			border-radius: 12px;
+			padding: 0.7em 0.7em;
+			width: 100%;
+			min-width: 202px;
+		}
+		&-btn {
+			font-size: 2.5rem;
+			color: $second-text-color;
+			padding-left: 0.3em;
+			cursor: pointer;
+
+			&:hover {
+				color: $first-design-color;
+			}
+		}
 	}
 }
 
 @media (min-width: 768px) {
-	.wallet {
-		.earning-lose,
-		.earning-lose-percentage {
+	.indexes {
+		.region,
+		.symbol {
 			display: block;
 		}
 
@@ -59,15 +89,14 @@
 }
 
 @media (min-width: 1340px) {
-	.wallet {
+	.indexes {
 		.stock,
-		.purchase-price,
-		.current-price {
+		.stock-currency {
 			display: block;
 		}
 
 		&__grid {
-			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+			grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 		}
 	}
 }

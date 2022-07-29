@@ -1,0 +1,150 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 1445px;
+  width: 100%;
+  padding: 0 1.5em;
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1em 0;
+}
+
+.plus-color {
+  color: #008a39;
+}
+
+.minus-color {
+  color: #f53c3d;
+}
+
+.stagnation-color {
+  color: #131635;
+}
+
+.error {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  max-width: 400px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 40px 0;
+  background-color: #f9f8fd;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  padding: 1em;
+  display: none;
+}
+
+.error-btn {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  background: none;
+  border: 1px solid #dcdcdc;
+  background-color: #0177fd;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-transition: display 0.3s;
+  transition: display 0.3s;
+}
+
+.error--active {
+  display: block;
+}
+
+.wallet .bold {
+  font-weight: 600;
+  padding-bottom: 0.8em;
+}
+
+.wallet .stock,
+.wallet .purchase-price,
+.wallet .current-price,
+.wallet .earning-lose,
+.wallet .earning-lose-percentage {
+  display: none;
+}
+
+.wallet__stocks {
+  background-color: #f9f8fd;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  position: relative;
+  z-index: -100;
+}
+
+.wallet__stocks::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  background: #dcdcdc;
+  height: 1px;
+  top: 40px;
+}
+
+.wallet__grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1.5fr 1fr 1fr;
+      grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 0.2em;
+  padding: 0.5em;
+  position: relative;
+}
+
+.wallet__grid-text {
+  padding-bottom: 0.5em;
+}
+
+@media (min-width: 768px) {
+  .wallet .earning-lose,
+  .wallet .earning-lose-percentage {
+    display: block;
+  }
+  .wallet__grid {
+    -ms-grid-columns: 2fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .right-column {
+    width: 100%;
+    max-width: unset;
+    padding-top: 2em;
+  }
+  .wallet .stock,
+  .wallet .purchase-price,
+  .wallet .current-price {
+    display: block;
+  }
+  .wallet__grid {
+    -ms-grid-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+  }
+}
+
+@media (min-width: 1340px) {
+  .right-column {
+    width: 100%;
+    max-width: unset;
+    padding-top: 2em;
+    padding-left: 310px;
+  }
+}
+/*# sourceMappingURL=wallet.css.map */

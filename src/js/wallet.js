@@ -16,18 +16,51 @@ async function getData(symbol) {
 	)
 	return data.json()
 }
-
 function displayWallet() {
-	buyedStocks.forEach(async el => {
+	buyedStocks.forEach(el => {
 		if (el.status !== "open") {
 			return
 		}
-		const data = await getData(el.symbol)
+
+		const newWalletItem = document.createElement("div")
+		newWalletItem.classList.add("wallet__grid")
+		newWalletItem.classList.add("wallet__grid--stock")
+		newWalletItem.setAttribute("data-symbol", el.symbol)
+		wallet.appendChild(newWalletItem)
+
+		newWalletItem.innerHTML = `
+		<p class="wallet__grid-text product">${el.stockName}</p>
+		<p class="wallet__grid-text quantity">${el.quantity}</p>
+		<p class="wallet__grid-text value">0</p>
+		<p class="wallet__grid-text purchase-price">${el.purchasePrice}</p>
+		<p class="wallet__grid-text current-price">0</p>
+		<p class="wallet__grid-text earning-lose">0</p>
+		<p class="wallet__grid-text earning-lose-percentage">0</p>
+
+		`
+	})
+	displayValues()
+}
+
+function displayValues() {
+	const allWalletBox = document.querySelectorAll(".wallet__grid--stock")
+
+	allWalletBox.forEach(async el => {
+		const symbol = el.dataset.symbol
+		const data = await getData(symbol)
 		const dataResult = data.optionChain.result[0].quote
-		const currentValue = (dataResult.ask * el.quantity).toFixed(2)
-		let change = (dataResult.ask - el.purchasePrice).toFixed(2)
+
+		let objLocalStorage = buyedStocks.find(el => el.symbol == symbol)
+		console.log(objLocalStorage)
+		const currentValue = (
+			dataResult.regularMarketPrice * objLocalStorage.quantity
+		).toFixed(2)
+		let change = (
+			dataResult.regularMarketPrice - objLocalStorage.purchasePrice
+		).toFixed(2)
 		let changePercentage = (
-			((dataResult.ask - el.purchasePrice) / el.purchasePrice) *
+			((dataResult.regularMarketPrice - objLocalStorage.purchasePrice) /
+				objLocalStorage.purchasePrice) *
 			100
 		).toFixed(2)
 		let color
@@ -53,19 +86,20 @@ function displayWallet() {
 			color = "minus-color"
 			changePercentage = `${changePercentage}`
 		}
+		const currentValueDiv = el.querySelector(".value")
+		currentValueDiv.textContent = currentValue
+		console.log(currentValue)
 
-		const newStock = document.createElement("div")
-		wallet.appendChild(newStock)
-		newStock.classList.add("wallet__grid")
-		newStock.innerHTML = `
-		<p class="wallet__grid-text product">${dataResult.shortName}</p>
-		<p class="wallet__grid-text quantity">${el.quantity}</p>
-		<p class="wallet__grid-text value">${currentValue} ${el.currency.toUpperCase()}</p>
-		<p class="wallet__grid-text purchase-price">${el.purchasePrice}</p>
-		<p class="wallet__grid-text current-price">${dataResult.ask}</p>
-		<p class="wallet__grid-text earning-lose ${color}">${change}</p>
-		<p class="wallet__grid-text earning-lose-percentage ${color}">${changePercentage}%</p>
-		`
+		const currentPrice = el.querySelector(".current-price")
+		currentPrice.textContent = dataResult.regularMarketPrice
+
+		const changeDiv = el.querySelector(".earning-lose")
+		changeDiv.textContent = change
+		changeDiv.classList.add(color)
+
+		const changePercentageDiv = el.querySelector(".earning-lose-percentage")
+		changePercentageDiv.textContent = `${changePercentage}%`
+		changePercentageDiv.classList.add(color)
 	})
 }
 
