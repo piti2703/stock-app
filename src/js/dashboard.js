@@ -88,7 +88,7 @@ function setCurrencyRate() {
 	})
 }
 
-// setCurrencyRate()
+setCurrencyRate()
 
 function displayStocks() {
 	buyedStocks.forEach(el => {
@@ -161,4 +161,4 @@ function displayValues() {
 	})
 }
 
-// displayStocks()
+displayStocks()
