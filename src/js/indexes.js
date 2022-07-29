@@ -6,7 +6,7 @@ async function getData(symbol) {
 		url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
 		params: { modules: "defaultKeyStatistics,assetProfile" },
 		headers: {
-			"x-api-key": "VhcanQxrrj46M9QxaP1s06hfYeVr8LDO7KIr1g1x",
+			"x-api-key": "iaBdYXYIhL97Olk4auG8C4rfZTaOgzsa9J1g4pab",
 		},
 	}
 	const data = await fetch(
