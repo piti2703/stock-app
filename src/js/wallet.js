@@ -55,12 +55,10 @@ function displayValues() {
 		const currentValue = (
 			dataResult.regularMarketPrice * objLocalStorage.quantity
 		).toFixed(2)
-		let change = (
-			dataResult.regularMarketPrice - objLocalStorage.purchasePrice
-		).toFixed(2)
+		let purchaseValue = objLocalStorage.purchasePrice * objLocalStorage.quantity
+		let change = (currentValue - purchaseValue).toFixed(2)
 		let changePercentage = (
-			((dataResult.regularMarketPrice - objLocalStorage.purchasePrice) /
-				objLocalStorage.purchasePrice) *
+			((currentValue - purchaseValue) / purchaseValue) *
 			100
 		).toFixed(2)
 		let color
@@ -87,7 +85,7 @@ function displayValues() {
 			changePercentage = `${changePercentage}`
 		}
 		const currentValueDiv = el.querySelector(".value")
-		currentValueDiv.textContent = currentValue
+		currentValueDiv.textContent = `${currentValue} ${objLocalStorage.currency.toUpperCase()}`
 		console.log(currentValue)
 
 		const currentPrice = el.querySelector(".current-price")

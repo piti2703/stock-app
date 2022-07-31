@@ -145,7 +145,7 @@ function displayValues() {
 		priceBox.firstElementChild.textContent = `${dataResult.regularMarketPrice} ${dataResult.currency}`
 
 		const exchangeStatus = el.querySelector(".stocks__box-quantity")
-		if (dataResult.triggerable) {
+		if (dataResult.tradeable) {
 			exchangeStatus.classList.add("plus-color")
 			exchangeStatus.textContent = "OPEN"
 		} else {
