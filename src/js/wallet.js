@@ -31,12 +31,11 @@ function displayWallet() {
 		newWalletItem.innerHTML = `
 		<p class="wallet__grid-text product">${el.stockName}</p>
 		<p class="wallet__grid-text quantity">${el.quantity}</p>
-		<p class="wallet__grid-text value">0</p>
 		<p class="wallet__grid-text purchase-price">${el.purchasePrice}</p>
 		<p class="wallet__grid-text current-price">0</p>
 		<p class="wallet__grid-text earning-lose">0</p>
 		<p class="wallet__grid-text earning-lose-percentage">0</p>
-
+		<p class="wallet__grid-text value">0</p>
 		`
 	})
 	displayValues()
