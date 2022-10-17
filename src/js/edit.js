@@ -1,3 +1,5 @@
+import buyedStocks from "./buyedStocks.min.js"
+
 const addPurchaseBtn = document.querySelector(".edit__btns-btn")
 const addPurchaseBox = document.querySelector(".edit__buy")
 const symbol = document.querySelector(".edit__buy-symbol")
@@ -15,7 +17,7 @@ const selectStock = document.querySelector(".edit__sale-stocks")
 const sellingPrice = document.querySelector(".edit__sale-price")
 const confirmBtn2 = document.querySelector(".edit__sale-confirm")
 
-const buyedStocks = JSON.parse(localStorage.getItem("buyedStocks")) || []
+const stock = JSON.parse(localStorage.getItem("buyedStocks")) || buyedStocks
 
 const message = document.querySelector(".message")
 
@@ -44,11 +46,9 @@ function checkSymbol() {
 		.then(response => response.json())
 		.then(response => {
 			if (response.optionChain.result[0] == undefined) {
-				console.log("sumbol jest zły")
 				errorBox.classList.add("error--active")
 				errorBoxText.innerHTML = `Please enter a <b>valid symbol!</b>`
 			} else {
-				console.log("sumbol jest ok")
 				addPurchase(
 					response.optionChain.result[0].quote.shortName,
 					response.optionChain.result[0].quote.fullExchangeName
@@ -68,11 +68,9 @@ function checkInputs() {
 		quantity.value == "" ||
 		currency.value == "-"
 	) {
-		console.log("uzupełnij wszystkie pola!")
 		errorBox.classList.add("error--active")
 		errorBoxText.textContent = "Fill in all fields!"
 	} else {
-		console.log("pola uzupełnione")
 		checkSymbol()
 	}
 }
@@ -96,12 +94,12 @@ function addPurchase(stockName, exchangeName) {
 		stockName: stockName,
 		exchangeName: exchangeName,
 	}
-	buyedStocks.push(newStock)
+	stock.push(newStock)
 	localStorage.setItem("buyedStocks", JSON.stringify(buyedStocks))
 }
 
 function displayStocks() {
-	buyedStocks.forEach(el => {
+	stock.forEach(el => {
 		if (el.status == "open") {
 			const newOption = document.createElement("option")
 			selectStock.appendChild(newOption)
@@ -128,7 +126,7 @@ function addSales() {
 		errorBoxText.textContent = "Fill in all fields!"
 	} else {
 		const selectedStock = selectValue()
-		buyedStocks.forEach(el => {
+		stock.forEach(el => {
 			if (el.symbol == selectedStock) {
 				el.status = "close"
 				el.salesValue = (el.quantity * sellingPrice.value).toFixed(2)
@@ -138,7 +136,6 @@ function addSales() {
 		})
 	}
 	localStorage.setItem("buyedStocks", JSON.stringify(buyedStocks))
-	console.log(buyedStocks)
 }
 
 confirmBtn.addEventListener("click", checkInputs)

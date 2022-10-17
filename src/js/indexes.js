@@ -1,20 +1,5 @@
 const indexesBoxes = document.querySelectorAll(".indexes__grid--index")
-
-async function getData(symbol) {
-	const options = {
-		method: "GET",
-		url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
-		params: { modules: "defaultKeyStatistics,assetProfile" },
-		headers: {
-			"x-api-key": "VhcanQxrrj46M9QxaP1s06hfYeVr8LDO7KIr1g1x",
-		},
-	}
-	const data = await fetch(
-		`https://yfapi.net/v7/finance/options/${symbol}`,
-		options
-	)
-	return data.json()
-}
+import getData from "./apiRequest.min.js"
 
 function setValue() {
 	indexesBoxes.forEach(async el => {
@@ -24,8 +9,6 @@ function setValue() {
 
 		let indexRate = dataResult.regularMarketChangePercent.toFixed(2)
 		let color
-
-		console.log(dataResult)
 
 		if (indexRate > 0) {
 			color = "plus-color"

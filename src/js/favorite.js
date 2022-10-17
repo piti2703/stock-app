@@ -1,10 +1,12 @@
+import favStocks from "./favStocks.min.js"
+import getData from "./apiRequest.min.js"
+
 const favoriteAddBtn = document.querySelector(".favorite__add-btn")
-const stocks = JSON.parse(localStorage.getItem("stocks")) || []
+const stocks = JSON.parse(localStorage.getItem("stocks")) || favStocks
 const favorite = document.querySelector(".favorite__stocks")
 const favoriteInput = document.querySelector(".favorite__add-input")
 const favoriteErrorBox = document.querySelector(".error")
 const favoriteErrorBoxBtn = document.querySelector(".error-btn")
-const favoriteMarks = document.querySelectorAll(".favorite__grid-mark")
 
 function addFavoritesSymbol() {
 	const typedText = favoriteInput.value
@@ -65,22 +67,6 @@ function displayFavorites() {
 	displayValues()
 }
 
-async function getData(symbol) {
-	const options = {
-		method: "GET",
-		url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
-		params: { modules: "defaultKeyStatistics,assetProfile" },
-		headers: {
-			"x-api-key": "VhcanQxrrj46M9QxaP1s06hfYeVr8LDO7KIr1g1x",
-		},
-	}
-	const data = await fetch(
-		`https://yfapi.net/v7/finance/options/${symbol}`,
-		options
-	)
-	return data.json()
-}
-
 function displayValues() {
 	const allFavoriteBox = document.querySelectorAll(".favorite__grid--stock")
 
@@ -108,7 +94,7 @@ function displayValues() {
 		change.classList.add(color)
 
 		const price = el.querySelector(".price")
-		price.textContent = dataResult.regularMarketPrice
+		price.textContent = dataResult.regularMarketPrice.toFixed(2)
 
 		const priceEarning = el.querySelector(".p-e")
 		priceEarning.textContent = dataResult.trailingPE.toFixed(2)

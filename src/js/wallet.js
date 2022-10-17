@@ -1,23 +1,11 @@
-const buyedStocks = JSON.parse(localStorage.getItem("buyedStocks")) || []
+import buyedStocks from "./buyedStocks.min.js"
+import getData from "./apiRequest.min.js"
+
+const stocks = JSON.parse(localStorage.getItem("buyedStocks")) || buyedStocks
 const wallet = document.querySelector(".wallet__stocks")
 
-async function getData(symbol) {
-	const options = {
-		method: "GET",
-		url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
-		params: { modules: "defaultKeyStatistics,assetProfile" },
-		headers: {
-			"x-api-key": "iaBdYXYIhL97Olk4auG8C4rfZTaOgzsa9J1g4pab",
-		},
-	}
-	const data = await fetch(
-		`https://yfapi.net/v7/finance/options/${symbol}`,
-		options
-	)
-	return data.json()
-}
 function displayWallet() {
-	buyedStocks.forEach(el => {
+	stocks.forEach(el => {
 		if (el.status !== "open") {
 			return
 		}
@@ -49,8 +37,7 @@ function displayValues() {
 		const data = await getData(symbol)
 		const dataResult = data.optionChain.result[0].quote
 
-		let objLocalStorage = buyedStocks.find(el => el.symbol == symbol)
-		console.log(objLocalStorage)
+		let objLocalStorage = stocks.find(el => el.symbol == symbol)
 		const currentValue = (
 			dataResult.regularMarketPrice * objLocalStorage.quantity
 		).toFixed(2)
@@ -85,7 +72,6 @@ function displayValues() {
 		}
 		const currentValueDiv = el.querySelector(".value")
 		currentValueDiv.textContent = `${currentValue} ${objLocalStorage.currency.toUpperCase()}`
-		console.log(currentValue)
 
 		const currentPrice = el.querySelector(".current-price")
 		currentPrice.textContent = dataResult.regularMarketPrice
