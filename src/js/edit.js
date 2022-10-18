@@ -117,6 +117,7 @@ displayStocks()
 
 const selectValue = () => {
 	const selectedValue = selectStock.options[selectStock.selectedIndex].value
+	console.log(selectedValue)
 	return selectedValue
 }
 
@@ -126,16 +127,18 @@ function addSales() {
 		errorBoxText.textContent = "Fill in all fields!"
 	} else {
 		const selectedStock = selectValue()
+		console.log(selectedStock)
 		stock.forEach(el => {
 			if (el.symbol == selectedStock) {
 				el.status = "close"
 				el.salesValue = (el.quantity * sellingPrice.value).toFixed(2)
 				message.classList.add("message--active")
-				setTimeout(() => window.location.reload(true), 2000)
+				console.log(buyedStocks)
+				// setTimeout(() => window.location.reload(true), 2000)
 			}
 		})
+		localStorage.setItem("buyedStocks", JSON.stringify(stock))
 	}
-	localStorage.setItem("buyedStocks", JSON.stringify(buyedStocks))
 }
 
 confirmBtn.addEventListener("click", checkInputs)
@@ -149,3 +152,5 @@ errorBoxBtn.addEventListener("click", () => {
 	errorBox.classList.remove("error--active")
 	errorBoxText.textContent = ""
 })
+
+selectStock.addEventListener("change", selectValue)
