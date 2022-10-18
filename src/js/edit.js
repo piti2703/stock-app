@@ -95,7 +95,7 @@ function addPurchase(stockName, exchangeName) {
 		exchangeName: exchangeName,
 	}
 	stock.push(newStock)
-	localStorage.setItem("buyedStocks", JSON.stringify(buyedStocks))
+	localStorage.setItem("buyedStocks", JSON.stringify(stock))
 }
 
 function displayStocks() {
