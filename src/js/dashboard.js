@@ -41,9 +41,9 @@ function calcBalance() {
 calcBalance()
 
 function displayBalance() {
-	pln.lastElementChild.textContent = valuePLN
-	eur.lastElementChild.textContent = valueEUR
-	usd.lastElementChild.textContent = valueUSD
+	pln.lastElementChild.textContent = valuePLN.toFixed(2)
+	eur.lastElementChild.textContent = valueEUR.toFixed(2)
+	usd.lastElementChild.textContent = valueUSD.toFixed(2)
 }
 
 function setCurrencyRate() {
