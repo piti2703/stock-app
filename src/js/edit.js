@@ -134,7 +134,7 @@ function addSales() {
 				el.salesValue = (el.quantity * sellingPrice.value).toFixed(2)
 				message.classList.add("message--active")
 				console.log(buyedStocks)
-				// setTimeout(() => window.location.reload(true), 2000)
+				setTimeout(() => window.location.reload(true), 2000)
 			}
 		})
 		localStorage.setItem("buyedStocks", JSON.stringify(stock))
