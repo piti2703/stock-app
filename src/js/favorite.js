@@ -107,7 +107,9 @@ function removeFavorite(e) {
 	const stockBox = e.target.parentElement
 	favorite.removeChild(stockBox)
 	const symbol = e.target.previousElementSibling.textContent
-	const index = stocks.indexOf(symbol)
+	const index = stocks.findIndex(object => {
+		return object.symbol === symbol
+	})
 	stocks.splice(index, 1)
 	localStorage.setItem("stocks", JSON.stringify(stocks))
 }
